@@ -1,0 +1,17 @@
+nav {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  background-color: whitesmoke;
+  margin-bottom: 15px;
+}
+
+nav>* {
+  text-decoration: none;
+  color: black;
+  padding: 15px 20px;
+}
+
+nav>*:hover {
+  background-color: gray;
+}

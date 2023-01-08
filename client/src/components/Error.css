@@ -1,0 +1,21 @@
+.Error>div {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-25%, -25%);
+    justify-content: center;
+    align-items: center;
+}
+
+.Error>div>img {
+    width: 150px;
+}
+
+.Error>div>span {
+    position: absolute;
+    font-size: 32px;
+    top: 120%;
+    width: max-content;
+}

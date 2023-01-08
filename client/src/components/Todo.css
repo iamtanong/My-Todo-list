@@ -1,0 +1,138 @@
+.Todo * {
+    color: #ddd;
+}
+
+.td-li {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.td {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 15px;
+    padding: 15px;
+    border: border;
+    border-radius: 15px;
+    background-color: #28427B;
+
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.61);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.61);
+}
+
+/* Name */
+.td-head h2 {
+    font-size: 30px;
+    margin: 10px 0;
+
+    background-color: #FCA311;
+    color: #000;
+    /* color: #FCA311; */
+
+    border-radius: 10px;
+    padding: 0 10px;
+    width: 85%;
+    right: 0;
+    float: right;
+}
+
+/* Description */
+.td h5 {
+    font-size: 18px;
+    margin: 10px 0;
+    margin-left: 25px;
+    color: #E5E5E5;
+}
+
+/* Deadline */
+.td h4 {
+    font-size: 24px;
+    margin: 10px 0;
+    margin-left: 20px;
+    color: #f5f5f5;
+}
+
+.td-head {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+/* Star Button */
+.td-head>button {
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: solid .2px #ccc;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.btn-group {
+    position: relative;
+    height: 50px;
+    left: 85%;
+    width: fit-content;
+    display: flex;
+    margin-left: 35px;
+}
+
+.btn-group>* {
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #eee;
+    text-decoration: none;
+    margin: auto 0;
+    color: black;
+    margin-right: 15px;
+}
+
+.btn-group>*:hover {
+    background-color: #dcdcdc;
+}
+
+.btn-group>*:active {
+    background-color: #ccc;
+}
+
+.td .edit-del {
+    display: none;
+}
+
+.td:hover .edit-del,
+.td:active .edit-del {
+    display: block;
+}
+
+.edit-del {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.edit-del>* {
+    border: solid .2px #ccc;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 3px;
+    margin-left: 1px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-del>*>* {
+    font-size: 20px;
+    color: #000;
+}
