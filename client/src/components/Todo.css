@@ -5,13 +5,13 @@
 .td-li {
     display: flex;
     position: relative;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     padding: 50px;
+    justify-content: space-around;
 }
 
 .td {
-    width: 300px;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -30,6 +30,7 @@
 .td-head h2 {
     font-size: 30px;
     margin: 10px 0;
+    padding-left: 5px;
 
     background-color: #FCA311;
     color: #000;
@@ -77,9 +78,14 @@
     font-size: 16px;
 }
 
+.im {
+    order: -1;
+}
+
 .btn-group {
     position: relative;
     height: 50px;
+    top: 15px;
     left: 85%;
     width: fit-content;
     display: flex;
@@ -135,4 +141,62 @@
 .edit-del>*>* {
     font-size: 20px;
     color: #000;
+}
+
+.dialogue {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+
+    display: none;
+
+    top: 0;
+    left: 0;
+}
+
+.dialogue * {
+    color: #000;
+}
+
+.front {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #bbb;
+    width: 350px;
+    height: 200px;
+    border-radius: 15px;
+    z-index: 10;
+}
+
+.front>h3 {
+    margin-top: 25px;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: .05rem;
+}
+
+.confirmdel {
+    position: absolute;
+    width: 96%;
+    margin: 0 2%;
+    display: flex;
+    justify-content: space-between;
+    bottom: 10px;
+}
+
+.confirmdel>* {
+    width: 48%;
+    border: .2px #ccc solid;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.bg {
+    width: 100vw;
+    height: 100vh;
+    background-color: #11111140;
+    position: absolute;
+    z-index: 5;
 }

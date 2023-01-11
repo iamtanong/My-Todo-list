@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios, { toFormData } from "axios";
+import axios from "axios";
 import "./Todo.css";
 
 import { MdModeEdit } from "react-icons/md";
@@ -25,13 +25,26 @@ function Todo() {
     fetchAllData();
   }, []);
 
-  async function handleDelete(id: number) {
+  async function handleDelete() {
     try {
-      await axios.delete("http://localhost:8800/todos/" + id);
+      await axios.delete("http://localhost:8800/todos/" + delID);
       window.location.reload();
     } catch (err) {
       console.log(err);
     }
+  }
+
+  const [dialogue, setDialogue] = useState<object>({ display: "none" });
+  const [delID, setDelID] = useState<number>(-1);
+
+  function confirmDel(id: number) {
+    setDialogue({ display: "block" });
+    setDelID(id);
+  }
+
+  function cancelDel() {
+    setDialogue({ display: "none" });
+    setDelID(-1);
   }
 
   function starClick(todo: any) {
@@ -51,14 +64,16 @@ function Todo() {
     }
   }
 
+  // document.getElementsByClassName()
+
   return (
     <div className="Todo">
       <div className="btn-group">
-        <Link to="/addtodos">Add Todo</Link>
+        <Link to="/new">Add Todo</Link>
       </div>
       <div className="td-li">
-        {todos.map((td, index) => (
-          <div className="td" key={td.id}>
+        {todos.map((td) => (
+          <div className={td.important ? "td im" : "td"} key={td.id}>
             <div className="td-head">
               <button
                 onClick={() => {
@@ -67,23 +82,21 @@ function Todo() {
               >
                 <GiRoundStar fill={td.important ? "gold" : "black"} />
               </button>
-              <h2>
-                {index + 1}. {td.name}
-              </h2>
+              <h2>{td.name}</h2>
             </div>
             <h5>{td.description}</h5>
             <h4>{td.deadline}</h4>
             <div className="edit-del">
               <button
                 onClick={() => {
-                  navigate(`/update/${td.id}`, { state: td });
+                  navigate(`/edit/${td.id}`, { state: td });
                 }}
               >
                 <MdModeEdit fill="#000" />
               </button>
               <button
                 onClick={() => {
-                  handleDelete(td.id);
+                  confirmDel(td.id);
                 }}
               >
                 <AiFillDelete fill="#000" />
@@ -91,6 +104,16 @@ function Todo() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="dialogue" style={dialogue}>
+        <div className="front">
+          <h3>Confirm Delete</h3>
+          <div className="confirmdel">
+            <button onClick={cancelDel}>Cancel</button>
+            <button onClick={handleDelete}>Delete</button>
+          </div>
+        </div>
+        <div className="bg"></div>
       </div>
     </div>
   );

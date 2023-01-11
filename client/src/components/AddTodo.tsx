@@ -8,11 +8,18 @@ function AddTodo() {
   let navigate = useNavigate();
   const [isStar, setIsStar] = useState<boolean>(false);
 
-  const [todo, setTodo] = useState<object>({
-    name: String,
-    description: String,
-    deadline: String,
-    important: Number,
+  interface td {
+    name: String;
+    description: String;
+    deadline: String;
+    important: any;
+  }
+
+  const [todo, setTodo] = useState<td>({
+    name: "",
+    description: "",
+    deadline: "",
+    important: 0,
   });
 
   let fillColor: string = isStar ? "gold" : "balck";
@@ -25,14 +32,23 @@ function AddTodo() {
     }));
   }
 
+  const [hell, setHell] = useState<string>("");
+
   function handleClick(e: any) {
     e.preventDefault();
-    try {
-      axios.post("http://localhost:8800/todos", todo);
-      navigate("/todos");
-      window.location.reload();
-    } catch (err) {
-      console.log(err);
+
+    if (todo.name === "" || todo.description === "" || todo.deadline === "") {
+      setHell("Cannot Add todo with Empty value.");
+    } else {
+      try {
+        setHell("");
+        axios.post("http://localhost:8800/todos", todo);
+        navigate("/");
+        window.location.reload();
+      } catch (err) {
+        setHell("Something error. Please check Console.");
+        console.log(err);
+      }
     }
   }
 
@@ -44,7 +60,7 @@ function AddTodo() {
     <div className="AddTodo">
       <button
         onClick={() => {
-          navigate("/todos");
+          navigate("/");
         }}
       >
         back
@@ -78,6 +94,7 @@ function AddTodo() {
           autoComplete="off"
         />
         <button onClick={handleClick}>Add</button>
+        <span>{hell}</span>
       </div>
     </div>
   );

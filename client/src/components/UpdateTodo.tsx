@@ -11,31 +11,47 @@ function UpdateTodo() {
 
   const ID = location.pathname.split("/")[2];
 
-  const [todo, setTodo] = useState<object>({
-    name: String,
-    description: String,
-    deadline: String,
+  interface td {
+    name: String;
+    description: String;
+    deadline: String;
+    important: any;
+  }
+
+  const [todo, setTodo] = useState<td>({
+    name: "",
+    description: "",
+    deadline: "",
+    important: 0,
   });
 
   function handleChange(e: any) {
     setTodo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
+  const [hell, setHell] = useState<string>("");
+
   function handleClick(e: any) {
     e.preventDefault();
-    try {
-      axios.put("http://localhost:8800/todos/" + ID, todo);
-      navigate("/todos");
-    } catch (err) {
-      console.log(err);
-    }
+
+    if (todo.name === "" || todo.description === "" || todo.deadline === "") {
+      setHell("Cannot Update todo with Empty value.");
+    } else
+      try {
+        setHell("");
+        axios.put("http://localhost:8800/todos/" + ID, todo);
+        navigate("/todos");
+      } catch (err) {
+        setHell("Something error. Please check Console.");
+        console.log(err);
+      }
   }
 
   return (
     <div className="UpdateTodo">
       <button
         onClick={() => {
-          navigate("/todos");
+          navigate("/");
         }}
       >
         back
@@ -67,6 +83,7 @@ function UpdateTodo() {
           value={state.deadline}
         />
         <button onClick={handleClick}>Update</button>
+        <span>{hell}</span>
       </div>
     </div>
   );
