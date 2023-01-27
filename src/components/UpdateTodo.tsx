@@ -47,6 +47,20 @@ function UpdateTodo() {
       }
   }
 
+  const [deadlineType, setDeadlineType] = useState<string>("");
+
+  function radioChange(e: any) {
+    setDeadlineType(e.target.value);
+    let { deadline, ...rest } = todo;
+    setTodo({ ...rest, deadline: "" });
+  }
+
+  console.log(state.deadline);
+  let k = state.deadline.split("-");
+  if (k.length > 2) setDeadlineType("date");
+  else if (k[1][0] == "W") setDeadlineType("week");
+  else setDeadlineType("month");
+
   return (
     <div className="UpdateTodo">
       <button
@@ -74,13 +88,30 @@ function UpdateTodo() {
           autoComplete="off"
           value={state.description}
         />
-        <label htmlFor="name">Deadline</label>
+        <div className="date-type" onChange={radioChange}>
+          <label className="radio-group">
+            <span className="label">Date</span>
+            <input type="radio" name="deadline-type" value="date" />
+            <span className="check"></span>
+          </label>
+          <label className="radio-group">
+            <span className="label">Week</span>
+            <input type="radio" name="deadline-type" value="week" />
+            <span className="check"></span>
+          </label>
+          <label className="radio-group">
+            <span className="label">Month</span>
+            <input type="radio" name="deadline-type" value="month" />
+            <span className="check"></span>
+          </label>
+        </div>
+
         <input
-          type="text"
+          type={deadlineType}
+          placeholder="deadline"
           onChange={handleChange}
           name="deadline"
           autoComplete="off"
-          value={state.deadline}
         />
         <button onClick={handleClick}>Update</button>
         <span>{hell}</span>

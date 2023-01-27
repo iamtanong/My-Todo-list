@@ -56,6 +56,14 @@ function AddTodo() {
     setIsStar(!isStar);
   }
 
+  const [deadlineType, setDeadlineType] = useState<string>("");
+
+  function radioChange(e: any) {
+    setDeadlineType(e.target.value);
+    let { deadline, ...rest } = todo;
+    setTodo({ ...rest, deadline: "" });
+  }
+
   return (
     <div className="AddTodo">
       <button
@@ -86,14 +94,38 @@ function AddTodo() {
           name="description"
           autoComplete="off"
         />
+
+        <div className="date-type" onChange={radioChange}>
+          <label className="radio-group">
+            <span className="label">Date</span>
+            <input type="radio" name="deadline-type" value="date" />
+            <span className="check"></span>
+          </label>
+          <label className="radio-group">
+            <span className="label">Week</span>
+            <input type="radio" name="deadline-type" value="week" />
+            <span className="check"></span>
+          </label>
+          <label className="radio-group">
+            <span className="label">Month</span>
+            <input type="radio" name="deadline-type" value="month" />
+            <span className="check"></span>
+          </label>
+        </div>
+
         <input
-          type="text"
+          type={deadlineType}
+          style={
+            deadlineType == "" ? { display: "none" } : { display: "block" }
+          }
           placeholder="deadline"
           onChange={handleChange}
           name="deadline"
           autoComplete="off"
         />
+
         <button onClick={handleClick}>Add</button>
+
         <span>{hell}</span>
       </div>
     </div>
